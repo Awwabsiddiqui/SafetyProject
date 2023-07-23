@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Countdown Timer</title>
+</head>
+<style>
+
+p {
+  display: inline;
+  font-size: 40px;
+  margin-top: 0px;
+}
+</style>
+<body>
+<br>
+<div  align="center" >
+
+	<p id="days"></p>
+    <p id="hours"></p>
+    <p id="mins"></p>
+    <p id="secs"></p>
+    <h2 id="end"></h2>
+
+</div>
+    <h1 id="notice" align="center" ></h1>
+    <br>
+<div  align="center" >
+<input id="pass"   type="password" >
+<button id="submit" onclick="javascript:checkPass();" >Submit</button>
+</div>
+<script>
+// Set the end date
+
+var countDownDate = new Date("2023-07-30 12:00:00");
+
+// Run myfunc every second
+var myfunc = setInterval(function() {
+
+var now = new Date().getTime();
+var timeleft = countDownDate - now;
+    
+// Calculating the days, hours, minutes and seconds left
+var days = Math.floor(timeleft / (1000 * 60 * 60 * 24));
+var hours = Math.floor((timeleft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+var minutes = Math.floor((timeleft % (1000 * 60 * 60)) / (1000 * 60));
+var seconds = Math.floor((timeleft % (1000 * 60)) / 1000);
+    
+// Result is output to the specific element
+document.getElementById("days").innerHTML = days + "d "
+document.getElementById("hours").innerHTML = hours + "h " 
+document.getElementById("mins").innerHTML = minutes + "m " 
+document.getElementById("secs").innerHTML = seconds + "s " 
+    
+// Display the message when countdown is over
+if (timeleft < 0) {
+    clearInterval(myfunc);
+    document.getElementById("days").innerHTML = ""
+    document.getElementById("hours").innerHTML = "" 
+    document.getElementById("mins").innerHTML = ""
+    document.getElementById("secs").innerHTML = ""
+    document.getElementById("end").innerHTML = "TIME UP!!";
+}
+}, 1000);
+
+
+function checkPass(){
+	var pass=document.getElementById("pass").value;
+	
+	if(pass==''){
+		alert("Empty Password");
+		return;
+	}
+	
+	if(pass=='password'){
+		document.getElementById("notice").innerHTML='Time Extended';
+		countDownDate.setDate(countDownDate.getDate() + 1)// Calculate the time remaining
+		document.getElementById("pass").value='';
+	}else if(pass=='abort'){
+		document.getElementById("notice").innerHTML='Time Reduced';
+		countDownDate.setDate(countDownDate.getDate() - 1)// Calculate the time remaining
+		document.getElementById("pass").value='';
+	}
+	else{
+		document.getElementById("notice").innerHTML='Time Reduced';
+		countDownDate.setDate(countDownDate.getDate() - 1)// Calculate the time remaining
+		document.getElementById("pass").value='';
+	}
+}
+
+</script>
+
+</body>
+</html>
